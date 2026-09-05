@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --border: #e5e5e5;
+  --border-strong: #171717;
+  --muted: #737373;
+  --bg: #ffffff;
+  --fg: #0a0a0a;
+}
+
+* {
+  border-color: var(--border);
+}
+
+html, body {
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  font-feature-settings: "ss01", "cv02";
+  letter-spacing: -0.005em;
+}
+
+body {
+  font-family: var(--font-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+@layer components {
+  .card {
+    @apply rounded-lg bg-white border border-neutral-200;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none;
+  }
+  .btn-primary {
+    @apply btn bg-neutral-950 text-white hover:bg-neutral-800;
+  }
+  .btn-outline {
+    @apply btn border border-neutral-200 hover:bg-neutral-50 text-neutral-900;
+  }
+  .btn-ghost {
+    @apply btn text-neutral-600 hover:text-neutral-950 hover:bg-neutral-50;
+  }
+  .input {
+    @apply w-full rounded-md border border-neutral-200 bg-white px-3 py-2.5 text-sm outline-none placeholder:text-neutral-400 focus:border-neutral-950 focus:ring-1 focus:ring-neutral-950;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full border border-neutral-200 bg-neutral-50 px-2 py-0.5 text-[11px] font-medium text-neutral-700;
+  }
+  .badge-navy {
+    @apply inline-flex items-center gap-1 rounded-full border border-navy-700/20 bg-navy-50 px-2 py-0.5 text-[11px] font-medium text-navy-800;
+  }
+  .badge-pink {
+    @apply inline-flex items-center gap-1 rounded-full border border-pink-300/40 bg-pink-50 px-2 py-0.5 text-[11px] font-medium text-pink-700;
+  }
+  .dot-navy { @apply inline-block w-2 h-2 rounded-full bg-navy-700; }
+  .dot-pink { @apply inline-block w-2 h-2 rounded-full bg-pink-400; }
+  .kbd {
+    @apply text-[10px] font-mono text-neutral-500 uppercase tracking-wider;
+  }
+}
+
+input, button, select, textarea {
+  font-size: 16px;
+  font-family: inherit;
+}
+
+::selection { background: #171717; color: #fff; }

@@ -1,0 +1,68 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Category {
+  CASA
+  CASAL
+}
+
+enum PlayerColor {
+  NAVY
+  PINK
+}
+
+model Player {
+  id          String        @id @default(cuid())
+  name        String
+  color       PlayerColor   @unique
+  completions Completion[]
+}
+
+model Activity {
+  id          String        @id @default(cuid())
+  name        String
+  points      Int
+  category    Category
+  completions Completion[]
+
+  @@unique([name, category])
+  @@index([category])
+}
+
+model Completion {
+  id          String    @id @default(cuid())
+  activityId  String
+  playerId    String
+  category    Category
+  points      Int
+  completedAt DateTime  @default(now())
+
+  activity Activity @relation(fields: [activityId], references: [id], onDelete: Cascade)
+  player   Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+
+  @@index([playerId, category, completedAt])
+  @@index([category, completedAt])
+}
+
+model UndoLog {
+  id            String   @id @default(cuid())
+  completionId  String
+  activityName  String
+  activityPoints Int
+  category      Category
+  playerId      String
+  completedAt   DateTime
+  reason        String
+  deviceLabel   String
+  userAgent     String?
+  undoneAt      DateTime @default(now())
+
+  @@index([undoneAt])
+}
